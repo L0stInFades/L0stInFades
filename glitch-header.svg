@@ -1,12 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="90" viewBox="0 0 720 90">
   <defs>
     <style>
-      text {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 58px;
-        font-weight: bold;
+      @font-face {
+        font-family: 'Fira Code';
+        font-weight: 600;
+        src: url('data:font/truetype;base64,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') format('truetype');
       }
-
+      text {
+        font-family: 'Fira Code', 'Courier New', monospace;
+        font-size: 52px;
+        font-weight: 600;
+      }
       @keyframes glitch-red {
         0%,88%,100% { clip-path: inset(50% 0 50% 0); transform: translateX(0);    opacity: 0; }
         89%          { clip-path: inset(18% 0 68% 0); transform: translateX(-6px); opacity: 1; }
@@ -16,34 +20,26 @@
         97%          { clip-path: inset(6%  0 72% 0); transform: translateX(-3px); opacity: 1; }
         99%          { opacity: 0; }
       }
-
       @keyframes glitch-cyan {
-        0%,84%,100% { clip-path: inset(50% 0 50% 0); transform: translateX(0);   opacity: 0; }
-        85%          { clip-path: inset(62% 0 22% 0); transform: translateX(6px); opacity: 1; }
-        87%          { clip-path: inset(12% 0 64% 0); transform: translateX(-6px);opacity: 1; }
-        89%          { clip-path: inset(40% 0 38% 0); transform: translateX(4px); opacity: 1; }
+        0%,84%,100% { clip-path: inset(50% 0 50% 0); transform: translateX(0);    opacity: 0; }
+        85%          { clip-path: inset(62% 0 22% 0); transform: translateX(6px);  opacity: 1; }
+        87%          { clip-path: inset(12% 0 64% 0); transform: translateX(-6px); opacity: 1; }
+        89%          { clip-path: inset(40% 0 38% 0); transform: translateX(4px);  opacity: 1; }
         91%          { opacity: 0; }
       }
-
       @keyframes glitch-base {
-        0%,88%,100% { transform: translateX(0); }
+        0%,88%,100% { transform: translateX(0);  }
         89%          { transform: translateX(2px); }
         91%          { transform: translateX(-2px); }
         93%          { transform: translateX(1px); }
-        95%          { transform: translateX(0); }
+        95%          { transform: translateX(0);  }
       }
     </style>
   </defs>
-
-  <!-- base -->
-  <text fill="#a78bfa" x="360" y="70" text-anchor="middle"
+  <text fill="#a78bfa" x="360" y="68" text-anchor="middle"
     style="animation: glitch-base 7s infinite;">Raaaaaymond</text>
-
-  <!-- red shift -->
-  <text fill="#ff3366" x="360" y="70" text-anchor="middle"
+  <text fill="#ff3366" x="360" y="68" text-anchor="middle"
     style="animation: glitch-red 7s infinite;">Raaaaaymond</text>
-
-  <!-- cyan shift -->
-  <text fill="#00e5ff" x="360" y="70" text-anchor="middle"
+  <text fill="#00e5ff" x="360" y="68" text-anchor="middle"
     style="animation: glitch-cyan 7s infinite;">Raaaaaymond</text>
 </svg>
