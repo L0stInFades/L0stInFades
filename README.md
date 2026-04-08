@@ -23,11 +23,7 @@ Each project is an attempt to find the precise language a problem deserves.
 
 **`currently`**
 
-```
-NEXT               自研 C++ 游戏引擎，支撑中华历史朝代系列 IP（首作：两宋）
-Raymdtxt           where thought meets the page without friction
-nocturnes-in-code  fugues · IDM · melodic techno — synthesized from scratch
-```
+[**edyt.video**](https://edyt.video) &nbsp;·&nbsp; motion design video editor — clean, ready-to-ship animations without the usual complexity. smooth curve-based pathing, shape morphing, camera system, stagger reveals. *early access.*
 
 **`selected work`**
 
