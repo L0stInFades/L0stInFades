@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="90" viewBox="0 0 720 90">
+  <defs>
+    <style>
+      text {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 58px;
+        font-weight: bold;
+      }
+
+      @keyframes glitch-red {
+        0%,88%,100% { clip-path: inset(50% 0 50% 0); transform: translateX(0);    opacity: 0; }
+        89%          { clip-path: inset(18% 0 68% 0); transform: translateX(-6px); opacity: 1; }
+        91%          { clip-path: inset(55% 0 12% 0); transform: translateX(5px);  opacity: 1; }
+        93%          { clip-path: inset(72% 0 4%  0); transform: translateX(-4px); opacity: 1; }
+        95%          { clip-path: inset(32% 0 48% 0); transform: translateX(6px);  opacity: 1; }
+        97%          { clip-path: inset(6%  0 72% 0); transform: translateX(-3px); opacity: 1; }
+        99%          { opacity: 0; }
+      }
+
+      @keyframes glitch-cyan {
+        0%,84%,100% { clip-path: inset(50% 0 50% 0); transform: translateX(0);   opacity: 0; }
+        85%          { clip-path: inset(62% 0 22% 0); transform: translateX(6px); opacity: 1; }
+        87%          { clip-path: inset(12% 0 64% 0); transform: translateX(-6px);opacity: 1; }
+        89%          { clip-path: inset(40% 0 38% 0); transform: translateX(4px); opacity: 1; }
+        91%          { opacity: 0; }
+      }
+
+      @keyframes glitch-base {
+        0%,88%,100% { transform: translateX(0); }
+        89%          { transform: translateX(2px); }
+        91%          { transform: translateX(-2px); }
+        93%          { transform: translateX(1px); }
+        95%          { transform: translateX(0); }
+      }
+    </style>
+  </defs>
+
+  <!-- base -->
+  <text fill="#a78bfa" x="360" y="70" text-anchor="middle"
+    style="animation: glitch-base 7s infinite;">Raaaaaymond</text>
+
+  <!-- red shift -->
+  <text fill="#ff3366" x="360" y="70" text-anchor="middle"
+    style="animation: glitch-red 7s infinite;">Raaaaaymond</text>
+
+  <!-- cyan shift -->
+  <text fill="#00e5ff" x="360" y="70" text-anchor="middle"
+    style="animation: glitch-cyan 7s infinite;">Raaaaaymond</text>
+</svg>

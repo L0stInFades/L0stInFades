@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Cinzel+Decorative&weight=700&size=44&duration=1&pause=999999999&color=A78BFA&center=true&vCenter=true&repeat=false&width=720&height=85&lines=RAAAAAYMOND" alt="Raaaaaymond" />
+<img src="https://raw.githubusercontent.com/L0stInFades/L0stInFades/main/glitch-header.svg" alt="Raaaaaymond" width="720" />
 
 <img src="https://readme-typing-svg.demolab.com?font=Cinzel&weight=400&size=15&duration=1&pause=999999999&color=6B21A8&center=true&vCenter=true&repeat=false&width=720&height=30&lines=L0stInFades" alt="L0stInFades" />
 
