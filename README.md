@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/L0stInFades/L0stInFades/main/glitch-header.svg" alt="Raaaaaymond" width="720" />
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=46&duration=3500&pause=999999999&color=A78BFA&center=true&vCenter=true&repeat=false&width=720&height=90&lines=Raaaaaymond" alt="Raaaaaymond" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Cinzel&weight=400&size=15&duration=1&pause=999999999&color=6B21A8&center=true&vCenter=true&repeat=false&width=720&height=30&lines=L0stInFades" alt="L0stInFades" />
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=400&size=13&duration=1&pause=999999999&color=6B21A8&center=true&vCenter=true&repeat=false&width=720&height=28&lines=L0stInFades" alt="L0stInFades" />
 
 <br>
 
