@@ -2,7 +2,8 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    # Avoid minute 0 where GitHub scheduled workflows are most prone to delay.
+    - cron: "23 0 * * *"
   workflow_dispatch:
 
 permissions:

@@ -2,7 +2,8 @@ name: 3D Contribution Graph
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    # Avoid minute 0 where GitHub scheduled workflows are most prone to delay.
+    - cron: "37 18 * * *"
   workflow_dispatch:
 
 permissions:
