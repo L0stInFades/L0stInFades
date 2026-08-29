@@ -136,7 +136,7 @@ F = {
     "text":     Font("ebgaramond-400",  "PgGaramond"),
     "texti":    Font("ebgaramond-i400", "PgGaramondItalic"),
     "caps":     Font("ebgaramond-500",  "PgGaramondMedium"),
-    "hand":     Font("quintessential-400", "PgQuintessential"),  # the chancery hand: the signature
+    "hand":     Font("pinyon-400",      "PgPinyon"),  # the copperplate hand: the signature
 }
 
 USED: dict = {}  # font key -> characters used by the plate being built
@@ -287,18 +287,18 @@ EPIGRAPH = ["systems that think — music that computes",
 
 
 def hero() -> str:
-    h = 484
+    h = 492
     b = [paper(h), double_rule(46)]
     b.append(caps(450, 80, "L0stInFades   ·   est. MMXXIV", 10.5, MUTED, "middle", .3))
     name = "Raaaaaymond"
-    size = fit("hand", name, 580, 104)
-    b.append(T(450, 200, name, "hand", size, INK, anchor="middle"))
+    size = fit("hand", name, 600, 100)
+    b.append(T(450, 204, name, "hand", size, INK, anchor="middle"))
     role = "systems   ·   engines   ·   proofs   ·   music"
     rw = caps_width(role, 11, .28)
-    b.append(caps(450, 268, role, 11, MUTED, "middle", .28))
-    b.append(hairline(264, 450 - rw / 2 - 60, 450 - rw / 2 - 22, HAIR2))
-    b.append(hairline(264, 450 + rw / 2 + 22, 450 + rw / 2 + 60, HAIR2))
-    y = 322
+    b.append(caps(450, 276, role, 11, MUTED, "middle", .28))
+    b.append(hairline(272, 450 - rw / 2 - 60, 450 - rw / 2 - 22, HAIR2))
+    b.append(hairline(272, 450 + rw / 2 + 22, 450 + rw / 2 + 60, HAIR2))
+    y = 330
     for line in EPIGRAPH:
         b.append(T(450, y, line, "texti", 18.5, INK2, anchor="middle"))
         y += 27
