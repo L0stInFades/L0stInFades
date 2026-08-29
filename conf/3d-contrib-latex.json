@@ -1,0 +1,11 @@
+{
+  "type": "normal",
+  "fileName": "profile-latex.svg",
+  "backgroundColor": "#050505",
+  "foregroundColor": "#c8c8c8",
+  "strongColor": "#ff2d55",
+  "weakColor": "#3a3a3a",
+  "radarColor": "#ff2d55",
+  "growingAnimation": true,
+  "contribColors": ["#191919", "#4a0a16", "#8c0c2b", "#c8103d", "#ff2d55"]
+}

@@ -16,9 +16,16 @@ jobs:
       - uses: Platane/snk/svg-only@v3
         with:
           github_user_name: ${{ github.repository_owner }}
+          # latex palette — crimson contribution dots on a black field, chrome snake
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/snake-latex.svg?color_dots=%23161616,%234a0a16,%238c0c2b,%23c8103d,%23ff2d55&color_snake=%23e8e8e8&color_dot_border=%23050505
+      - name: Paint the latex floor (snk emits a transparent SVG)
+        run: |
+          f=dist/snake-latex.svg
+          vb=$(grep -o 'viewBox="[^"]*"' "$f" | head -1 | sed 's/viewBox="//; s/"$//')
+          set -- $vb
+          sed -i "0,/<\/style>/s|</style>|</style><rect x=\"$1\" y=\"$2\" width=\"$3\" height=\"$4\" fill=\"#050505\"/>|" "$f"
+          grep -c 'fill="#050505"' "$f"
       - uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
