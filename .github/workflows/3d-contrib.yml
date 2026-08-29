@@ -18,21 +18,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
-          # latex palette — black floor, crimson towers (see conf/)
-          SETTING_JSON: conf/3d-contrib-latex.json
+          # paper palette (see conf/3d-contrib.json)
+          SETTING_JSON: conf/3d-contrib.json
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Ledger plate (contributions · streaks, house style)
+      - name: Re-ink the graph and set the ledger plate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install --quiet fonttools brotli
-          python assets/latex/ledger.py
+          python assets/readme/tint.py profile-3d-contrib/profile.svg
+          python assets/readme/ledger.py
       - name: Commit & Push
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add -A profile-3d-contrib assets/latex/ledger.svg
+          git add -A profile-3d-contrib assets/readme/ledger.svg
           git commit -m "chore: update 3D contribution graph + ledger" || exit 0
           git push
