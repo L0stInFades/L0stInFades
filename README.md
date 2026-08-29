@@ -16,7 +16,7 @@
 <a href="https://github.com/L0stInFades"><img src="assets/latex/sec-03-stack.svg" alt="03 — Stack" align="top" width="100%"></a>
 <a href="https://github.com/L0stInFades"><img src="assets/latex/stack.svg" alt="Stack: C++, RUST, TYPESCRIPT, PYTHON, OCAML, LEAN 4, VERILOG, GLEAM, SUPERCOLLIDER, ELECTRON, LINUX, VIM" align="top" width="100%"></a>
 <a href="https://github.com/L0stInFades"><img src="assets/latex/sec-04-activity.svg" alt="04 — Activity" align="top" width="100%"></a>
-<a href="https://github.com/L0stInFades"><img src="https://streak-stats.demolab.com?user=L0stInFades&hide_border=true&background=050505&ring=ff2d55&fire=ff2d55&currStreakNum=e6e6e6&sideNums=e6e6e6&currStreakLabel=ff2d55&sideLabels=8a8a8a&dates=5a5a5a&stroke=1f1f1f" alt="contribution streak" align="top" width="50%"></a><a href="https://github.com/L0stInFades"><img src="assets/latex/colophon.svg" alt="Colophon" align="top" width="50%"></a>
+<a href="https://github.com/L0stInFades"><img src="assets/latex/ledger.svg" alt="Contributions and streaks" align="top" width="50%"></a><a href="https://github.com/L0stInFades"><img src="assets/latex/colophon.svg" alt="Colophon" align="top" width="50%"></a>
 <a href="https://github.com/L0stInFades"><img src="profile-3d-contrib/profile-latex.svg" alt="3D contribution graph" align="top" width="100%"></a>
 <a href="https://github.com/L0stInFades"><img src="https://raw.githubusercontent.com/L0stInFades/L0stInFades/output/snake-latex.svg" alt="contribution snake" align="top" width="100%"></a>
 <a href="https://github.com/L0stInFades"><img src="assets/latex/footer.svg" alt="L0stInFades · 2026" align="top" width="100%"></a>

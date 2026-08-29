@@ -534,10 +534,12 @@ def readme(rows):
     out.append(link(PROFILE_URL, img(A + "sec-03-stack.svg", "03 — Stack")))
     out.append(link(PROFILE_URL, img(A + "stack.svg", "Stack: " + ", ".join(STACK))))
     out.append(link(PROFILE_URL, img(A + "sec-04-activity.svg", "04 — Activity")))
-    # NOTE: the GitHub stats card (STATS above) is deliberately not used — the self-hosted
-    # instance currently answers with an error card (needs PAT_1 on Vercel). To restore it,
-    # swap `colophon.svg` for  link(PROFILE_URL, img(STATS, "GitHub stats", "50%"))  below.
-    out.append(link(PROFILE_URL, img(STREAK, "contribution streak", "50%")) + link(PROFILE_URL, img(A + "colophon.svg", "Colophon", "50%")))
+    # The external cards (STATS / STREAK above) are deliberately not used: the self-hosted
+    # stats instance answers with an error card until PAT_1 is set on Vercel, and
+    # streak-stats.demolab.com keeps failing behind GitHub's image proxy. ledger.svg
+    # (assets/latex/ledger.py, refreshed daily by the 3d-contrib workflow) replaces them.
+    out.append(link(PROFILE_URL, img(A + "ledger.svg", "Contributions and streaks", "50%"))
+               + link(PROFILE_URL, img(A + "colophon.svg", "Colophon", "50%")))
     out.append(link(PROFILE_URL, img(CONTRIB3D, "3D contribution graph")))
     out.append(link(PROFILE_URL, img(SNAKE, "contribution snake")))
     out.append(link(PROFILE_URL, img(A + "footer.svg", "L0stInFades · 2026")))
