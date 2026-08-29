@@ -113,7 +113,7 @@ class Font:
         """@font-face carrying only the glyphs a single plate uses."""
         opts = subset.Options()
         opts.flavor = "woff2"
-        opts.layout_features = ["kern", "liga", "calt"]
+        opts.layout_features = ["kern", "liga", "calt", "lnum"]
         opts.hinting = False
         opts.desubroutinize = True
         opts.notdef_outline = True
@@ -279,21 +279,21 @@ def paragraph(text, font, size, leading, x, y, measure, fill=INK2, justify=True,
 
 
 # ── the plates ──────────────────────────────────────────────────────────────
-EPIGRAPH = ["systems that think — music that computes",
-            "proofs where words fall silent",
-            "engines for worlds not yet rendered",
-            "compression as meditation",
-            "writing compilers for the unnameable"]
+EPIGRAPH = ["Of systems that think, and music that computes;",
+            "of proofs wherein words fall silent;",
+            "of engines for worlds not yet rendered;",
+            "of compression, as a manner of meditation;",
+            "and of compilers written for the unnameable."]
 
 
 def hero() -> str:
     h = 492
     b = [paper(h), double_rule(46)]
-    b.append(caps(450, 80, "L0stInFades   ·   est. MMXXIV", 10.5, MUTED, "middle", .3))
+    b.append(caps(450, 80, "L0stInFades   ·   established MMXXIV", 10.5, MUTED, "middle", .3))
     name = "Raaaaaymond"
     size = fit("hand", name, 600, 100)
     b.append(T(450, 204, name, "hand", size, INK, anchor="middle"))
-    role = "systems   ·   engines   ·   proofs   ·   music"
+    role = "of systems, engines, proofs & music"
     rw = caps_width(role, 11, .28)
     b.append(caps(450, 276, role, 11, MUTED, "middle", .28))
     b.append(hairline(272, 450 - rw / 2 - 60, 450 - rw / 2 - 22, HAIR2))
@@ -306,9 +306,9 @@ def hero() -> str:
     return svg(h, "".join(b), ["hand", "caps", "texti", "display"], "", "Raaaaaymond — L0stInFades")
 
 
-STATEMENT = ("I work at the edges of computing — building game engines, verifying mathematics, "
-             "composing algorithms into music. Each project is an attempt to find the precise "
-             "language a problem deserves.")
+STATEMENT = ("I labour at the margins of computing: in the building of engines for games, the verification "
+             "of mathematics, and the composing of algorithms into music. Each undertaking is an endeavour "
+             "to find that precise language which a problem deserves.")
 
 
 def statement() -> str:
@@ -331,32 +331,32 @@ def currently() -> str:
     b = [paper(h)]
     title = "edyt.video"
     b.append(T(L, 74, title, "displayi", 44, INK))
-    b.append(caps(R, 70, "[ early access ]", 10.5, RUBRIC, "end", .26))
-    b.append(T(L, 108, "motion design video editor — clean, ready-to-ship animations without the usual complexity.",
-               "text", 16, INK2))
-    b.append(T(L, 134, "smooth curve-based pathing · shape morphing · camera system · stagger reveals",
-               "texti", 14.5, MUTED))
-    b.append(caps(R, 162, "visit  →", 10.5, MUTED, "end", .26))
+    b.append(caps(R, 70, "[ in early access ]", 10.5, RUBRIC, "end", .26))
+    l1 = "An editor for motion design: clean, ready-to-ship animations, without the customary complexity."
+    b.append(T(L, 108, l1, "text", fit("text", l1, R - L, 16), INK2))
+    l2 = "smooth pathing upon curves · the morphing of shapes · a camera system · staggered reveals"
+    b.append(T(L, 134, l2, "texti", fit("texti", l2, R - L, 14.5), MUTED))
+    b.append(caps(R, 162, "visit the site  →", 10.5, MUTED, "end", .26))
     return svg(h, "".join(b), ["displayi", "caps", "text", "texti"], "",
-               "edyt.video — motion design video editor · early access")
+               "edyt.video — an editor for motion design · in early access")
 
 
 PROJECTS = [
-    ("Afterglow", "iOS Photos-style image viewer for Windows · Direct2D + DirectComposition · spring physics · hero transitions",
+    ("Afterglow", "an image viewer for Windows, after the manner of iOS Photos · Direct2D & DirectComposition · spring physics",
      "C++ · Direct2D", "https://github.com/L0stInFades/Afterglow"),
-    ("ember", "from-scratch RISC-V cores, single-cycle to out-of-order · an RV32IMAC/Sv32 MMU SoC that boots Linux to a shell",
+    ("ember", "RISC-V cores built from nothing, single-cycle to out-of-order · an RV32IMAC/Sv32 SoC that boots Linux to a shell",
      "Verilog · RISC-V", "https://github.com/L0stInFades/ember"),
-    ("BlameEngine", "headless authoritative-world game engine · UE5 view client + Jolt physics · a real-code hacking sandbox",
+    ("BlameEngine", "a headless engine of an authoritative world · UE5 view, Jolt physics · a sandbox wherein real code is the hack",
      "C++ · UE5 · Jolt", "https://github.com/L0stInFades/BlameEngine"),
-    ("AnalysisTrinity", "formal proofs of Nested Intervals · Bolzano–Weierstrass · Heine–Borel — the completeness trinity",
+    ("AnalysisTrinity", "formal proofs of Nested Intervals, Bolzano–Weierstrass & Heine–Borel — the trinity of completeness",
      "Lean 4", "https://github.com/L0stInFades/AnalysisTrinity"),
-    ("nocturnes-in-code", "algorithmic compositions — neoclassical fugues, IDM drum machines, melodic techno, synthesized from scratch",
+    ("nocturnes-in-code", "compositions by algorithm — neoclassical fugues, IDM drum machines, melodic techno, all synthesised from nothing",
      "SuperCollider", "https://github.com/L0stInFades/nocturnes-in-code"),
-    ("Nevermind-Lang", "a language.",
+    ("Nevermind-Lang", "a language, of the author's own devising.",
      "Rust", "https://github.com/L0stInFades/Nevermind-Lang"),
-    ("Quench", "compression as meditation · extraction as gentle unfolding",
+    ("Quench", "compression as meditation · extraction as a gentle unfolding",
      "Rust", "https://github.com/L0stInFades/Quench"),
-    ("Cocode-Precise", "MCP server for exact code symbol retrieval — whole functions and classes, nothing more",
+    ("Cocode-Precise", "an MCP server for the exact retrieval of code symbols — whole functions and classes, and nothing besides",
      "Python · MCP", "https://github.com/L0stInFades/Cocode-Precise"),
 ]
 
@@ -390,13 +390,15 @@ def instruments() -> str:
 
 
 def colophon() -> str:
-    h = 176
+    h = 198
     b = [paper(h), fleuron(450, 50, 20)]
-    b.append(T(450, 88, "Set in Cormorant Garamond & EB Garamond; the plates are drawn by assets/readme/gen.py.",
+    b.append(T(450, 88, "This page was set in Cormorant Garamond & EB Garamond, the name being written in Pinyon Script;",
                "texti", 14.5, INK2, anchor="middle"))
-    b.append(caps(450, 114, "L0stInFades   ·   MMXXVI", 10.5, MUTED, "middle", .3))
-    b.append(double_rule(140, thin_below=False))
-    return svg(h, "".join(b), ["display", "texti", "caps"], "", "Colophon — L0stInFades, 2026")
+    b.append(T(450, 110, "the plates were drawn by assets/readme/gen.py, and the whole printed for the author.",
+               "texti", 14.5, INK2, anchor="middle"))
+    b.append(caps(450, 140, "L0stInFades   ·   MMXXVI", 10.5, MUTED, "middle", .3))
+    b.append(double_rule(164, thin_below=False))
+    return svg(h, "".join(b), ["display", "texti", "caps"], "", "Colophon — printed for the author, L0stInFades, 2026")
 
 
 # ── README ──────────────────────────────────────────────────────────────────
@@ -417,18 +419,18 @@ def readme(rows):
     out = ['<!-- set by assets/readme/gen.py — edit that, not this -->', '<div align="center">']
     out.append(link(PROFILE_URL, img(A + "hero.svg", "Raaaaaymond — L0stInFades")))
     out.append(link(PROFILE_URL, img(A + "statement.svg", STATEMENT)))
-    out.append(link("https://edyt.video", img(A + "sec-1.svg", "I · Currently")))
-    out.append(link("https://edyt.video", img(A + "now-edyt.svg", "edyt.video — motion design video editor · early access")))
-    out.append(link(PROFILE_URL + "?tab=repositories", img(A + "sec-2.svg", "II · Selected work")))
+    out.append(link("https://edyt.video", img(A + "sec-1.svg", "I · Of Present Labours")))
+    out.append(link("https://edyt.video", img(A + "now-edyt.svg", "edyt.video — an editor for motion design · in early access")))
+    out.append(link(PROFILE_URL + "?tab=repositories", img(A + "sec-2.svg", "II · A Catalogue of Selected Works")))
     for (name, desc, tag, url), fname in rows:
         out.append(link(url, img(A + fname, f"{name} — {desc}")))
-    out.append(link(PROFILE_URL, img(A + "sec-3.svg", "III · Instruments")))
+    out.append(link(PROFILE_URL, img(A + "sec-3.svg", "III · Of the Instruments")))
     out.append(link(PROFILE_URL, img(A + "instruments.svg", "Instruments: " + ", ".join(STACK))))
-    out.append(link(PROFILE_URL, img(A + "sec-4.svg", "IV · Chronicle")))
+    out.append(link(PROFILE_URL, img(A + "sec-4.svg", "IV · A Chronicle of Contributions")))
     out.append(link(PROFILE_URL, img(A + "ledger.svg", "Contributions and streaks")))
     out.append(link(PROFILE_URL, img(CONTRIB3D, "3D contribution graph")))
     out.append(link(PROFILE_URL, img(SNAKE, "contribution snake")))
-    out.append(link(PROFILE_URL, img(A + "colophon.svg", "Colophon — L0stInFades, 2026")))
+    out.append(link(PROFILE_URL, img(A + "colophon.svg", "Colophon — printed for the author, L0stInFades, 2026")))
     out.append('</div>')
     return "\n".join(out) + "\n"
 
@@ -437,12 +439,12 @@ def main():
     files = {
         "hero.svg": hero(),
         "statement.svg": statement(),
-        "sec-1.svg": section(1, "Currently"),
+        "sec-1.svg": section(1, "Of Present Labours"),
         "now-edyt.svg": currently(),
-        "sec-2.svg": section(2, "Selected Work"),
-        "sec-3.svg": section(3, "Instruments"),
+        "sec-2.svg": section(2, "A Catalogue of Selected Works"),
+        "sec-3.svg": section(3, "Of the Instruments"),
         "instruments.svg": instruments(),
-        "sec-4.svg": section(4, "Chronicle"),
+        "sec-4.svg": section(4, "A Chronicle of Contributions"),
         "colophon.svg": colophon(),
     }
     rows = []

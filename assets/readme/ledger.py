@@ -91,25 +91,30 @@ def span(a, b) -> str:
     if not a:
         return "—"
     if a == b:
-        return f"{a:%d %B}"
-    return f"{a:%d %B} – {b:%d %B}" if a.year == b.year else f"{a:%d %B %Y} – {b:%d %B %Y}"
+        return f"{a.day} {a:%B}"
+    if a.year != b.year:
+        return f"{a.day} {a:%B %Y} – {b.day} {b:%B %Y}"
+    if a.month == b.month:
+        return f"{a.day}–{b.day} {b:%B}"
+    return f"{a.day} {a:%B} – {b.day} {b:%B}"
 
 
 def render(total: int, current, best, created, today) -> str:
     w, h = gen.W, 180
     b = [paper(h)]
-    cols = [(270, f"{total:,}", "contributions", f"since {created:%B %Y}"),
-            (450, f"{current[0]:,}", "current streak", span(current[1], current[2])),
-            (630, f"{best[0]:,}", "longest streak", span(best[1], best[2]))]
+    cols = [(270, f"{total:,}", "contributions in all", f"since {created:%B}, {created:%Y}"),
+            (450, f"{current[0]:,}", "the present streak", span(current[1], current[2])),
+            (630, f"{best[0]:,}", "the longest streak", span(best[1], best[2]))]
     for x, num, label, sub in cols:
-        b.append(T(x, 84, num, "display", 54, INK, anchor="middle"))
+        b.append(T(x, 84, num, "display", 54, INK, anchor="middle",
+                   extra='style="font-feature-settings:&quot;lnum&quot; 1"'))
         b.append(caps(x, 112, label, 10, MUTED, "middle", .26))
         b.append(T(x, 134, sub, "texti", 13.5, MUTED, anchor="middle"))
     for x in (360, 540):
         b.append(vline(x, 52, 144, HAIR))
-    b.append(caps(450, 164, f"as of {today:%d %B %Y}", 9, HAIR2, "middle", .26))
-    title = (f"{total} contributions since {created:%B %Y} · current streak {current[0]} days · "
-             f"longest streak {best[0]} days")
+    b.append(caps(450, 164, f"reckoned on {today.day} {today:%B %Y}", 9, HAIR2, "middle", .26))
+    title = (f"{total} contributions since {created:%B %Y} · the present streak {current[0]} days · "
+             f"the longest streak {best[0]} days")
     return svg(h, "".join(b), ["display", "caps", "texti"], "", title, w)
 
 
