@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ledger.py — sets assets/readme/ledger.svg: total contributions and streaks, on the page.
+ledger.py — sets assets/readme/ledger-light.svg and ledger-dark.svg: total contributions
+and streaks, in the manner of the rest of the page (the plate itself is gen.ledger).
 
 Run daily by .github/workflows/3d-contrib.yml with GITHUB_TOKEN; locally it falls back
 to `gh api graphql`. Needs:  pip install fonttools brotli
@@ -15,10 +16,9 @@ import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gen  # noqa: E402
-from gen import HAIR, HAIR2, INK, MUTED, T, caps, paper, svg, vline  # noqa: E402
 
-LOGIN = "L0stInFades"
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ledger.svg")
+LOGIN = gen.HANDLE
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ledger-{theme}.svg")
 
 QUERY = """query($login:String!,$from:DateTime!,$to:DateTime!){
   user(login:$login){ createdAt
@@ -87,35 +87,27 @@ def streaks(days: dict):
     return current, best
 
 
-def span(a, b) -> str:
+def span(a, b, month="%B") -> str:
     if not a:
         return "—"
     if a == b:
-        return f"{a.day} {a:%B}"
+        return f"{a.day} {a:{month}}"
     if a.year != b.year:
-        return f"{a.day} {a:%B %Y} – {b.day} {b:%B %Y}"
+        return f"{a.day} {a:{month} %Y} – {b.day} {b:{month} %Y}"
     if a.month == b.month:
-        return f"{a.day}–{b.day} {b:%B}"
-    return f"{a.day} {a:%B} – {b.day} {b:%B}"
+        return f"{a.day}–{b.day} {b:{month}}"
+    return f"{a.day} {a:{month}} – {b.day} {b:{month}}"
 
 
-def render(total: int, current, best, created, today) -> str:
-    w, h = gen.W, 180
-    b = [paper(h)]
-    cols = [(270, f"{total:,}", "contributions in all", f"since {created:%B}, {created:%Y}"),
-            (450, f"{current[0]:,}", "the present streak", span(current[1], current[2])),
-            (630, f"{best[0]:,}", "the longest streak", span(best[1], best[2]))]
-    for x, num, label, sub in cols:
-        b.append(T(x, 84, num, "display", 54, INK, anchor="middle",
-                   extra='style="font-feature-settings:&quot;lnum&quot; 1"'))
-        b.append(caps(x, 112, label, 10, MUTED, "middle", .26))
-        b.append(T(x, 134, sub, "texti", 13.5, MUTED, anchor="middle"))
-    for x in (360, 540):
-        b.append(vline(x, 52, 144, HAIR))
-    b.append(caps(450, 164, f"reckoned on {today.day} {today:%B %Y}", 9, HAIR2, "middle", .26))
-    title = (f"{total} contributions since {created:%B %Y} · the present streak {current[0]} days · "
-             f"the longest streak {best[0]} days")
-    return svg(h, "".join(b), ["display", "caps", "texti"], "", title, w)
+def spans(a, b):
+    """The same span of days in full and with the months cut short, for a narrow column."""
+    return [span(a, b), span(a, b, "%b")]
+
+
+def figures(total: int, current, best, created):
+    return [(f"{total:,}", "contributions in all", [f"since {created:%B}, {created:%Y}", f"since {created:%b} {created:%Y}"]),
+            (f"{current[0]:,}", "the present streak", spans(current[1], current[2])),
+            (f"{best[0]:,}", "the longest streak", spans(best[1], best[2]))]
 
 
 def main():
@@ -123,10 +115,13 @@ def main():
     current, best = streaks(days)
     total = sum(days.values())
     today = dt.datetime.now(dt.timezone.utc).date()
-    with open(OUT, "w", encoding="utf-8") as fh:
-        fh.write(render(total, current, best, created, today))
-    print(f"  ledger.svg  total={total}  current={current[0]}  longest={best[0]}  "
-          f"({os.path.getsize(OUT) / 1024:.1f} KB)")
+    note = f"reckoned on {today.day} {today:%B %Y}"
+    for t in gen.THEMES:
+        out = OUT.format(theme=t.key)
+        with open(out, "w", encoding="utf-8") as fh:
+            fh.write(gen.ledger(t, figures(total, current, best, created), note))
+        print(f"  {os.path.basename(out)}  total={total}  current={current[0]}  longest={best[0]}  "
+              f"({os.path.getsize(out) / 1024:.1f} KB)")
 
 
 if __name__ == "__main__":

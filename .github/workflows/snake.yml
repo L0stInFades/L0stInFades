@@ -16,16 +16,18 @@ jobs:
       - uses: Platane/snk/svg-only@v3
         with:
           github_user_name: ${{ github.repository_owner }}
-          # paper palette — sepia contribution dots, an ink snake
+          # one snake per theme, in the same five tones as the 3D graph (conf/3d-contrib.json)
           outputs: |
-            dist/snake.svg?color_dots=%23e7e0d0,%23cfc0a0,%23ad9770,%23846f50,%234f4231&color_snake=%232a2622&color_dot_border=%23f4efe4
-      - name: Paint the paper (snk emits a transparent SVG)
+            dist/snake-light.svg?color_dots=%23ededed,%23c9c9c9,%23969696,%23555555,%23111111&color_snake=%23000000&color_dot_border=%23ffffff
+            dist/snake-dark.svg?color_dots=%232a2f36,%234b4f55,%237e8287,%23b9bcc0,%23ffffff&color_snake=%23ffffff&color_dot_border=transparent
+      - name: Stand the day snake on white (snk emits a transparent SVG; night stays transparent)
         run: |
-          f=dist/snake.svg
+          f=dist/snake-light.svg
           vb=$(grep -o 'viewBox="[^"]*"' "$f" | head -1 | sed 's/viewBox="//; s/"$//')
           set -- $vb
-          sed -i "0,/<\/style>/s|</style>|</style><rect x=\"$1\" y=\"$2\" width=\"$3\" height=\"$4\" fill=\"#f4efe4\"/>|" "$f"
-          grep -c 'fill="#f4efe4"' "$f"
+          sed -i "0,/<\/style>/s|</style>|</style><rect x=\"$1\" y=\"$2\" width=\"$3\" height=\"$4\" fill=\"#ffffff\"/>|" "$f"
+          grep -c 'fill="#ffffff"' "$f"
+          ls -l dist
       - uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
