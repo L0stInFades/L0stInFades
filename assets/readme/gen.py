@@ -5,7 +5,8 @@ gen.py — sets the README of github.com/L0stInFades.
 
 Black, white, and a great deal of air: the name in a thin, widely spaced sans, titles in
 a classical serif, small tracked capitals, a hairline here and there. The manner of a
-quiet hotel's stationery.
+quiet hotel's stationery. One thing is done to the name and to nothing else: of its five
+A's only the first is whole, and the rest are echoes of it (see `echoes`).
 
     python3 gen.py              # needs:  pip install fonttools brotli
 
@@ -217,7 +218,7 @@ class Font:
         opts.desubroutinize = True
         opts.notdef_outline = True
         opts.name_IDs = [1, 2]
-        f = TTFont(self.path)
+        f = TTFont(self.path, recalcTimestamp=False)  # the same plate, byte for byte, on every run
         s = subset.Subsetter(opts)
         s.populate(unicodes=sorted({ord(c) for c in chars} | {0x20}))
         s.subset(f)
@@ -425,12 +426,57 @@ def plate(settings: dict, title: str, ground=None, rules: str = "", css: str = "
 
 # ── the plates ──────────────────────────────────────────────────────────────
 HERO_H = 420
+ECHO = (.80, .60, .44, .30)  # what is left of each A after the first
 HERO_CSS = ("@keyframes f{from{opacity:0}}"
             ".f1{animation:f 1.4s cubic-bezier(.3,.1,.3,1) both}"
             ".f2{animation:f 1.2s .45s ease-out both}"
             ".f3{animation:f 1.2s .8s ease-out both}"
-            "@media (prefers-reduced-motion:reduce){.f1,.f2,.f3{animation:none}}")
+            + "".join(f".e{i + 1}{{animation:f 1.1s {.6 + .25 * i:.2f}s ease-out both}}" for i in range(len(ECHO)))
+            + "@media (prefers-reduced-motion:reduce){.f1,.f2,.f3,"
+            + ",".join(f".e{i + 1}" for i in range(len(ECHO))) + "{animation:none}}")
 HERO_ALT = f"{NAME} ({HANDLE}), {ROLE}."
+
+
+def echoes(word: str):
+    """The one thing done to the name. In a run of A's the first is whole and each one after
+    it is an echo: -> [(letter, None or how much of it is left)]."""
+    out, run = [], 0
+    for ch in word.upper():
+        run = run + 1 if ch == "A" and out and out[-1][0] == "A" else 0
+        out.append((ch, ECHO[min(run, len(ECHO)) - 1] if run else None))
+    return out
+
+
+def set_name(size: float, spread: float):
+    """Place the name letter by letter. An echo is drawn with a V stood on its head, which is
+    an A that has lost its bar. -> ([(glyph, x from the left, echo)], width)"""
+    x, placed = 0.0, []
+    for ch, echo in echoes(NAME):
+        glyph = "V" if echo else ch
+        placed.append((glyph, x, echo))
+        x += F["name"].width(glyph, size) + spread * size
+    return placed, x - spread * size
+
+
+def name_mark(y: float, size: float, spread: float) -> str:
+    """The name, centred, its baseline at y: the letters fade in together, then the echoes
+    arrive one after another, each fainter than the last."""
+    f = F["name"]
+    cap = f.cap * size
+    placed, width = set_name(size, spread)
+    out, n = [], 0
+    for glyph, x, echo in placed:
+        use("name", glyph)
+        at = (f'x="50%" y="{y:.1f}" dx="{x - width / 2:.2f}" font-family="{f.family}" '
+              f'font-size="{size:g}" fill="{HERO.ink}"')
+        if echo:
+            n += 1
+            # mirrored about the middle of the capitals; x is untouched, so "50%" still holds
+            out.append(f'<text class="e{n}" {at} fill-opacity="{echo:g}" '
+                       f'transform="translate(0 {2 * y - cap:.2f}) scale(1 -1)">{glyph}</text>')
+        else:
+            out.append(f'<text class="f1" {at}>{glyph}</text>')
+    return "".join(out)
 
 
 def hero() -> str:
@@ -445,13 +491,13 @@ def hero() -> str:
                  + T("100%", side + cap_small, SINCE.upper(), "caps", s.caps, HERO.ink, "end", track=TRACK, dx=-side)
                  + '</g>')
         # the name, and under it what the name is for
-        size = fit("name", NAME.upper(), s.fits - 2 * s.side, s.mark, s.spread)
+        size = float(int(min(s.mark, (s.fits - 2 * s.side) / set_name(1.0, s.spread)[1])))
         cap = F["name"].cap * size
         role = wrap("caps", s.caps, ROLE.upper(), s.fits - 2 * side, TRACK)
         under, lead = (30 if k in "wm" else 24), s.caps * 2
         block = cap + under + cap_small + lead * (len(role) - 1)
         top = (H - block) / 2 - 4
-        b.append(f'<g class="f1">{T("50%", top + cap, NAME.upper(), "name", size, HERO.ink, track=s.spread)}</g>')
+        b.append(name_mark(top + cap, size, s.spread))
         b.append('<g class="f2">' + "".join(
             T("50%", top + cap + under + cap_small + i * lead, ln, "caps", s.caps, HERO.mute, track=TRACK)
             for i, ln in enumerate(role)) + '</g>')
